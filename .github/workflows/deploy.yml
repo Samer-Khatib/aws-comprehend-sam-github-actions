@@ -21,7 +21,12 @@ jobs:
       - name: Install SAM CLI
         uses: aws-actions/setup-sam@v2
         with:
-          version: '1.126.0'   # <= pin to a valid number
+          version: '1.126.0'
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
 
       - name: Build SAM app (no container)
         run: sam build --template-file sentiment-demo/template.yaml
