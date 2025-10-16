@@ -21,7 +21,7 @@ jobs:
       - name: Install SAM CLI
         uses: aws-actions/setup-sam@v2
         with:
-          version: 'latest'
+          version: '1.126.0'   # <= pin to a valid number
 
       - name: Build SAM app (no container)
         run: sam build --template-file sentiment-demo/template.yaml
