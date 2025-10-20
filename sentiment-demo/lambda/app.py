@@ -1,18 +1,13 @@
-import os
-import json
-import boto3
+import json, boto3
 
-def handler(event, context):
+comprehend = boto3.client("comprehend")
 
-    client = boto3.client('comprehend')
-    body = event["body"]
-    sentiment = client.detect_sentiment(LanguageCode = "en", Text = body)
+def lambda_handler(event, context):
+    text = event["body"]
+    result = comprehend.detect_sentiment(Text=text, LanguageCode="en")
+    sentiment = result["Sentiment"]
     return {
-            "statusCode": 200,
-            "headers": {
-                "Content-Type": "application/json"
-            },
-            "body": json.dumps({
-                "sentiment ": json.dumps(sentiment)
-            })
+        "statusCode": 200,
+        "headers": {"Content-Type": "application/json"},
+        "body": json.dumps({"Sentiment": sentiment})
     }
